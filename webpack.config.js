@@ -3,11 +3,12 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const baseConfig = {
   entry: './src/index.tsx',
   output: {
-    filename: '[name]-[hash:5].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'docs')
   },
   module: {
@@ -33,7 +34,8 @@ const baseConfig = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      filename: "index.html"
+      filename: "index.html",
+      title: 'Password Generator'
     }),
     new HtmlWebpackIncludeAssetsPlugin({
       assets: [
@@ -41,6 +43,10 @@ const baseConfig = {
         { path: 'https://fonts.googleapis.com/css?family=Material+Icons', type: 'css' },
       ],
       append: true
+    }),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
     })
   ]
 }

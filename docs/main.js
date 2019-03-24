@@ -73,4 +73,4 @@ t.prefix=r.default,t.supportedProperty=o.default,t.supportedValue=i.default},fun
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-function(){return r.createElement(a.a,null,r.createElement(u.a,null,r.createElement(c.a,{variant:"title",color:"inherit"},"Генератор паролей")))};const d=document.createElement("div");document.body.appendChild(d),o.render(r.createElement(f,null),d)}]);
+function(){return r.createElement(a.a,null,r.createElement(u.a,null,r.createElement(c.a,{variant:"title",color:"inherit"},"Генератор паролей")))};const d=document.createElement("div");document.body.appendChild(d),o.render(r.createElement(f,null),d),"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("/service-worker.js").then(e=>{console.log("SW registered: ",e)}).catch(e=>{console.log("SW registration failed: ",e)})})}]);

@@ -8,7 +8,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const baseConfig = {
   entry: './src/index.tsx',
   output: {
-    filename: '[name].js',
+    filename: '[name]-[hash:6].js',
     path: path.resolve(__dirname, 'docs')
   },
   module: {

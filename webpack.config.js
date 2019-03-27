@@ -35,7 +35,10 @@ const baseConfig = {
   plugins: [
     new HtmlWebPackPlugin({
       filename: "index.html",
-      title: 'Password Generator'
+      title: 'Password Generator',
+      meta: {
+        viewport: 'width=device-width, initial-scale=1',
+      },
     }),
     new HtmlWebpackIncludeAssetsPlugin({
       assets: [

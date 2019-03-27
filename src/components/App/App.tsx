@@ -10,6 +10,8 @@ import {
   ListItemText,
   MenuItem,
   withStyles,
+  createMuiTheme,
+  MuiThemeProvider,
 } from '@material-ui/core';
 
 interface IAppStyles {
@@ -26,6 +28,12 @@ const styles = (theme: any): IAppStyles => ({
     minWidth: 300,
   },
 });
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark', // Switching the dark mode on is a single property value change.
+  },
+});
+
 
 enum EPassType {
   PIN_4 = 0,
@@ -59,25 +67,27 @@ function App(props: IAppProps) {
     <>
       <AppBar>
         <Toolbar>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="password-type">Age</InputLabel>
-            <Select
-              value={passType}
-              onChange={(e) => {
-                setType(Number(e.target.value));
-              }}
-              inputProps={{
-                name: 'password-type',
-                id: 'password-type',
-              }}
-            >
-              {
-                Object.values(EPassType).filter(Number.isInteger).map((type: EPassType) => (
-                  <MenuItem value={type} key={type}>{passTypeLabele[type]}</MenuItem>
-                ))
-              }
-            </Select>
-          </FormControl>
+          <MuiThemeProvider theme={theme}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="password-type">Age</InputLabel>
+              <Select
+                value={passType}
+                onChange={(e) => {
+                  setType(Number(e.target.value));
+                }}
+                inputProps={{
+                  name: 'password-type',
+                  id: 'password-type',
+                }}
+              >
+                {
+                  Object.values(EPassType).filter(Number.isInteger).map((type: EPassType) => (
+                    <MenuItem value={type} key={type}>{passTypeLabele[type]}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+          </MuiThemeProvider>
         </Toolbar>
       </AppBar>
       <List component="nav">

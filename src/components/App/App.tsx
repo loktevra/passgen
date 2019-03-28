@@ -2,18 +2,14 @@ import * as React from 'react';
 import {
   AppBar,
   Toolbar,
-  FormControl,
-  InputLabel,
-  Select,
   List,
   ListItem,
   ListItemText,
-  MenuItem,
   withStyles,
-  MuiThemeProvider,
 } from '@material-ui/core';
 import SelectPassType from '../SelectPassType';
-import { EPassType, passOptions, numbers } from '../../constants/passType';
+import { EPassType } from '../../constants/passType';
+import createPassword from '../../utils/createPassword';
 
 interface IAppStyles {
 }
@@ -24,10 +20,6 @@ interface IAppProps {
 
 const styles = (theme: any): IAppStyles => ({
 });
-
-function createPassword(passType: EPassType) {
-  return Array(passOptions[passType].length).fill(null).map(() => numbers[Math.floor(Math.random() * numbers.length)]).join('')
-}
 
 function App(props: IAppProps) {
   const [passType, setType] = React.useState(EPassType.PIN_4);

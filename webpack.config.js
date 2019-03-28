@@ -49,7 +49,8 @@ const baseConfig = {
     }),
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
-      skipWaiting: true
+      skipWaiting: true,
+      cleanupOutdatedCaches: true,
     })
   ]
 }

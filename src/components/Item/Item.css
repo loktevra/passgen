@@ -1,0 +1,4 @@
+.hidden-input {
+  position: fixed;
+  left: -10000px;
+}

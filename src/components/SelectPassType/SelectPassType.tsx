@@ -8,11 +8,11 @@ import {
 } from '@material-ui/core';
 import theme from './theme';
 import { ISelectPassTypeStyles } from './styles';
-import { EPassType, passTypeLabele } from '../../constants/passType';
+import { passTypesKeys, passTypes } from '../../constants/passType';
 
 interface ISelectPassTypeProps {
-  selectedPassType: EPassType;
-  setType(type: number): void;
+  selectedPassType: string;
+  setType(type: string): void;
   classes: ISelectPassTypeStyles;
 }
 
@@ -26,11 +26,11 @@ function SelectPassType(props: ISelectPassTypeProps) {
   return (
     <MuiThemeProvider theme={theme}>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="password-type">Age</InputLabel>
+        <InputLabel htmlFor="password-type">Password type</InputLabel>
         <Select
           value={selectedPassType}
           onChange={(e) => {
-            setType(Number(e.target.value));
+            setType(e.target.value);
           }}
           inputProps={{
             name: 'password-type',
@@ -38,8 +38,8 @@ function SelectPassType(props: ISelectPassTypeProps) {
           }}
         >
           {
-            Object.values(EPassType).filter(Number.isInteger).map((type: EPassType) => (
-              <MenuItem value={type} key={type}>{passTypeLabele[type]}</MenuItem>
+            passTypesKeys.map((type) => (
+              <MenuItem value={type} key={type}>{passTypes[type].label}</MenuItem>
             ))
           }
         </Select>

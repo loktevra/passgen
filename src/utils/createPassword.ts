@@ -1,8 +1,9 @@
-import { EPassType, passOptions, numbers } from '../constants/passType';
+import { passTypes } from '../constants/passType';
 
-export default function createPassword(passType: EPassType) {
-  return Array(passOptions[passType].length)
-    .fill(null)
-    .map(() => passOptions[passType].symbols[Math.floor(Math.random() * passOptions[passType].symbols.length)])
+export default function createPassword(key: string) {
+  const length = passTypes[key].mask.length;
+
+  return passTypes[key].mask
+    .map(mask => mask[Math.floor(Math.random() * mask.length)])
     .join('')
 }

@@ -1,33 +1,41 @@
-export enum EPassType {
-  PIN_4 = 0,
-  PIN_6 = 1,
-  PIN_8 = 2,
-  NUM_ALPHABET_LOWER_6 = 3,
-  NUM_ALPHABET_LOWER_8 = 4,
-  NUM_ALPHABET_UPPER_6 = 5,
-  NUM_ALPHABET_UPPER_8 = 6,
+const numbers = '1234567890';
+const alphabetLowerCase = 'abcdefghijklmnopqrstuvwxyz';
+const alphabetUpperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const numbersAlphabetLowerCase = numbers.concat(alphabetLowerCase);
+const numbersAlphabetUpperCase = numbers.concat(alphabetUpperCase);
+const numbersAlphabet = numbers.concat(alphabetLowerCase).concat(alphabetUpperCase);
+
+type TCreatePassTypeParams = [string, string[]]
+interface IPassType {
+  key: string;
+  label: string;
+  mask: string[];
+}
+function createPassType([label, mask]: TCreatePassTypeParams): IPassType{
+  return {
+    key: label,
+    label,
+    mask,
+  }
 }
 
-export const passTypeLabele = {
-  [EPassType.PIN_4]: '1234',
-  [EPassType.PIN_6]: '123456',
-  [EPassType.PIN_8]: '12345678',
-  [EPassType.NUM_ALPHABET_LOWER_6]: '123abc',
-  [EPassType.NUM_ALPHABET_LOWER_8]: '1234abcd',
-  [EPassType.NUM_ALPHABET_UPPER_6]: '123ABC',
-  [EPassType.NUM_ALPHABET_UPPER_8]: '1234ABCD',
+interface IPassTypes {
+  [key: string]: IPassType;
 }
+export const passTypes: IPassTypes = [
+  ['1234', [numbers, numbers, numbers, numbers]],
+  ['123456', [numbers, numbers, numbers, numbers, numbers, numbers]],
+  ['12345678', [numbers, numbers, numbers, numbers, numbers, numbers, numbers, numbers]],
+  ['123abc', [numbers, numbers, numbers, alphabetLowerCase, alphabetLowerCase, alphabetLowerCase]],
+  ['1234abcd', [numbers, numbers, numbers, numbers, alphabetLowerCase, alphabetLowerCase, alphabetLowerCase, alphabetLowerCase]],
+  ['123ABC', [numbers, numbers, numbers, alphabetUpperCase, alphabetUpperCase, alphabetUpperCase]],
+  ['1234ABCD', [numbers, numbers, numbers, numbers, alphabetUpperCase, alphabetUpperCase, alphabetUpperCase, alphabetUpperCase]],
+  ['1b3d5f7h', [numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase, numbersAlphabetLowerCase]],
+  ['1B3D5F7H', [numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase, numbersAlphabetUpperCase]],
+  ['1b3D5f7H', [numbersAlphabet, numbersAlphabet, numbersAlphabet, numbersAlphabet, numbersAlphabet, numbersAlphabet, numbersAlphabet, numbersAlphabet]],
+].map(createPassType).reduce<IPassTypes>((acc, options) => ({
+  ...acc,
+  [options.key]: options,
+}), {});
 
-export const numbers = '1234567890';
-export const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-export const alphabetUpperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-export const passOptions = {
-  [EPassType.PIN_4]: {length: 4, symbols: numbers},
-  [EPassType.PIN_6]: {length: 6, symbols: numbers},
-  [EPassType.PIN_8]: {length: 8, symbols: numbers},
-  [EPassType.NUM_ALPHABET_LOWER_6]: {length: 6, symbols: [numbers,alphabet].join('')},
-  [EPassType.NUM_ALPHABET_LOWER_8]: {length: 8, symbols: [numbers,alphabet].join('')},
-  [EPassType.NUM_ALPHABET_UPPER_6]: {length: 6, symbols: [numbers,alphabetUpperCase].join('')},
-  [EPassType.NUM_ALPHABET_UPPER_8]: {length: 8, symbols: [numbers,alphabetUpperCase].join('')},
-}
+export const passTypesKeys = Object.keys(passTypes);

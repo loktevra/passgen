@@ -3,13 +3,11 @@ import {
   AppBar,
   Toolbar,
   List,
-  ListItem,
-  ListItemText,
   withStyles,
 } from '@material-ui/core';
 import SelectPassType from '../SelectPassType';
-import { EPassType } from '../../constants/passType';
-import createPassword from '../../utils/createPassword';
+import Item from '../Item';
+import { passTypesKeys } from '../../constants/passType';
 
 interface IAppStyles {
 }
@@ -22,7 +20,7 @@ const styles = (theme: any): IAppStyles => ({
 });
 
 function App(props: IAppProps) {
-  const [passType, setType] = React.useState(EPassType.PIN_4);
+  const [passType, setType] = React.useState(passTypesKeys[0]);
 
   return (
     <>
@@ -34,9 +32,7 @@ function App(props: IAppProps) {
       <List component="nav">
         {
           Array(10).fill(null).map((item, index) => (
-            <ListItem button key={index}>
-              <ListItemText primary={createPassword(passType)} />
-            </ListItem>
+            <Item passType={passType} key={index}/>
           ))
         }
       </List>
